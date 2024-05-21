@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -51,11 +52,12 @@ typedef enum BUTTON_STATE {
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-button_state_t estado_boton [3]= {TECLA_INACTIVA, TECLA_INACTIVA, TECLA_INACTIVA};
-uint8_t contador = 0;
-uint8_t valor_swich_anterior [3];
-uint8_t valor_swich [3];
-uint8_t DEBOUNCE_INTERVAL = 10;
+//inicializamos las variables
+button_state_t estado_boton [2]= {TECLA_INACTIVA, TECLA_INACTIVA};
+uint8_t contador[2] = {0,0};
+uint8_t valor_swich_anterior [2]= {0,0};
+uint8_t valor_swich [2]= {0,0};
+uint8_t TIEMPO_DEBOUNCE = 10;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,32 +68,35 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// funcion para habilitar "printf"
 int __io_putchar(int ch)
 {
 	HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 100);
 	return ch;
 }
 
-void debounce(uint8_t pin_tecla, uint8_t pin_led, int i)
+//funcion para el debouncing
+//pin_tecla y pin_led solo para puertos A
+// numero de tecla para guardar los datos individuales de cada boton en un array
+// el tiempo de espera es de 10ms
+void debounce(uint8_t pin_tecla, uint8_t pin_led, uint8_t i)
 {
 	switch (estado_boton[i])
 	{
 	case TECLA_INACTIVA:
-		valor_swich[i]= HAL_GPIO_ReadPin(GPIOA, pin_tecla);
+		valor_swich[i]= HAL_GPIO_ReadPin(GPIOA, pin_tecla);//se lee el estado del boton
 		if (valor_swich[i] == 1)
 		{
-			estado_boton[i] = TECLA_PRESIONADA;
 			valor_swich_anterior[i] = valor_swich[i];
-			contador = HAL_GetTick();
+			estado_boton[i] = TECLA_PRESIONADA;
 		}
 		break;
 	case TECLA_PRESIONADA:
-		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);
-		if (valor_swich[i] == valor_swich_anterior[i]|| HAL_GetTick() - contador > DEBOUNCE_INTERVAL)
+		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);//se lee el estado del boton
+		if (valor_swich[i] == valor_swich_anterior[i]|| contador[i] > TIEMPO_DEBOUNCE)//comparamos valor anterior con el valor actual
 		{
-			HAL_GPIO_WritePin(GPIOA, pin_led, 1);
+			HAL_GPIO_WritePin(GPIOA, pin_led, 1);// encendemos el led
 			printf("Tecla apretada: TEC%d\n\r", i);
-			contador = 0;
 			valor_swich_anterior[i] = 0;
 			estado_boton[i] = TECLA_LIBERADA;
 		}
@@ -99,12 +104,13 @@ void debounce(uint8_t pin_tecla, uint8_t pin_led, int i)
 		{
 			estado_boton[i] = TECLA_INACTIVA;
 		}
+		contador[i] = contador[i] + 1;
 		break;
 	case TECLA_LIBERADA:
-		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);
+		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);//se lee el estado del boton
 		if (valor_swich[i] == 0)
 		{
-			HAL_GPIO_WritePin(GPIOA, pin_led, 0);
+			HAL_GPIO_WritePin(GPIOA, pin_led, 0);// apagamos el led
 			printf("Tecla liberada: TEC%d\n\r", i);
 			estado_boton[i] = TECLA_INACTIVA;
 		}
@@ -144,15 +150,16 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART3_UART_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  debounce(TECLA_1_Pin, LED_1_Pin, 1);
-	  debounce(TECLA_2_Pin, LED_2_Pin, 2);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -201,6 +208,15 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+//interrupcion cada 1ms
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if(htim->Instance == TIM2)
+  {
+	  debounce(TECLA_1_Pin, LED_1_Pin, 0);
+	  debounce(TECLA_2_Pin, LED_2_Pin, 1);
+  }
+}
 /* USER CODE END 4 */
 
 /**
