@@ -15,7 +15,8 @@ Para la comunicaion se utilizo el usart_3, sin habilitar la interrupcion.
 
 MÁQUINAS DE ESTADOS CON DEBOUNCE
 
-![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/3a176be8-8ce6-40e2-9a39-4e7ec34c782a)
+![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/c51feae6-14be-4dc8-b64d-a3a541f99b41)
+
 
 Para evitar el rebote de las teclas, se utilizan máquinas de estados con debounce. Cada tecla tiene su propia máquina de estado, que consta de los siguientes estados:
 
@@ -27,13 +28,21 @@ Para evitar el rebote de las teclas, se utilizan máquinas de estados con deboun
 
 Las máquinas de estado realizan las siguientes transiciones:
 
-•	Tecla Inactiva a Tecla Presionada: Cuando se detecta un pulso de la tecla.
+•	Tecla Inactiva a Tecla Presionada: 
 
-•	Tecla Presionada: Inicia de un tiempo de debounce (10 ms).
+Si se detecta un pulso de la tecla, guarda el valor_swich en valor_swich_anterior y pasa a Tecla Presionada.
 
-•	Tecla Presionada a Tecla Liberada: Después de un tiempo de debounce.
+•	Tecla Presionada: 
 
-•	Tecla Inactiva: Cuando se detecta un pulso bajo de la tecla.
+Inicia de un tiempo de debounce (10 ms).
+
+•	Tecla Presionada a Tecla Liberada: 
+
+Si pasaron los 10ms y el valor_swich es iagual a valor_swich_anterior pasa al siquiente estado, sino vuelve a Tecla Inactiva.
+
+•	Tecla Inactiva: 
+
+Se detecta un estado bajo de la tecla.
 
 ENVÍO DE INFORMACIÓN POR UART
 
