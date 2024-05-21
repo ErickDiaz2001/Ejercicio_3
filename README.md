@@ -5,7 +5,7 @@ El sistema envía información sobre el estado de las teclas a través de la UAR
 
 MÁQUINAS DE ESTADOS CON DEBOUNCE
 
-![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/44fcb442-1924-4020-be15-ae0308b60885)
+![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/4a36542f-2f37-4a1b-b2f3-375ef91ee777)
 
 Para evitar el rebote de las teclas, se utilizan máquinas de estados con debounce. Cada tecla tiene su propia máquina de estado, que consta de los siguientes estados:
 
