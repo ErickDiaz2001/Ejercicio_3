@@ -38,7 +38,7 @@ Inicia de un tiempo de debounce (10 ms).
 
 •	Tecla Presionada a Tecla Liberada: 
 
-Si pasaron los 10ms y el valor_swich es iagual a valor_swich_anterior pasa al siquiente estado, sino vuelve a Tecla Inactiva.
+Si pasaron los 10ms y el valor_swich es igual a valor_swich_anterior pasa al siquiente estado, sino vuelve a Tecla Inactiva.
 
 •	Tecla Inactiva: 
 
