@@ -6,13 +6,15 @@ de la UART y enciende un LED correspondiente cuando se presiona una tecla.
 
 MÁQUINAS DE ESTADOS CON DEBOUNCE
 
+![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/0af4d7b5-b2cb-4b67-9db0-039430eed827)
+
 Para evitar el rebote de las teclas, se utilizan máquinas de estados con debounce. Cada tecla tiene su propia máquina de estado, que consta de los siguientes estados:
 
 •	Tecla Inactiva: La tecla está en estado bajo, hasta que sea confirmado la pulsación.
 
 •	Tecla Presionada: La tecla se ha presionado, se ha confirmado la pulsación.
 
-•	Tecla Liberada: La tecla se ha confirmado como suelta.
+•	Tecla Liberada: La tecla se ha confirmado como liberada.
 
 Las máquinas de estado realizan las siguientes transiciones:
 
