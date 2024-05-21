@@ -5,15 +5,15 @@ El sistema envía información sobre el estado de las teclas a través de la UAR
 
 MÁQUINAS DE ESTADOS CON DEBOUNCE
 
-![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/0af4d7b5-b2cb-4b67-9db0-039430eed827)
+![image](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/44fcb442-1924-4020-be15-ae0308b60885)
 
 Para evitar el rebote de las teclas, se utilizan máquinas de estados con debounce. Cada tecla tiene su propia máquina de estado, que consta de los siguientes estados:
 
-•	Tecla Inactiva: La tecla está en estado bajo, hasta que sea confirmado la pulsación.
+•	Tecla Inactiva
 
-•	Tecla Presionada: La tecla se ha presionado, se ha confirmado la pulsación.
+•	Tecla Presionada
 
-•	Tecla Liberada: La tecla se ha confirmado como liberada.
+•	Tecla Liberada
 
 Las máquinas de estado realizan las siguientes transiciones:
 
