@@ -1,8 +1,7 @@
 INTRODUCCIÓN
 
-Este informe describe un sistema de control que utiliza máquinas de estados con debounce para dos teclas. El sistema envía información sobre el estado de las teclas a través 
-
-de la UART y enciende un LED correspondiente cuando se presiona una tecla.
+Este informe describe un sistema de control que utiliza máquinas de estados con debounce para dos teclas. 
+El sistema envía información sobre el estado de las teclas a través de la UART y enciende un LED correspondiente cuando se presiona una tecla.
 
 MÁQUINAS DE ESTADOS CON DEBOUNCE
 
