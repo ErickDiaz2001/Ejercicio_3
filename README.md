@@ -1,8 +1,10 @@
-Introducción
+INTRODUCCIÓN
 
-Este informe describe un sistema de control que utiliza máquinas de estados con debounce para dos teclas. El sistema envía información sobre el estado de las teclas a través de la UART y enciende un LED correspondiente cuando se presiona una tecla.
+Este informe describe un sistema de control que utiliza máquinas de estados con debounce para dos teclas. El sistema envía información sobre el estado de las teclas a través 
 
-Máquinas de Estados con Debounce
+de la UART y enciende un LED correspondiente cuando se presiona una tecla.
+
+MÁQUINAS DE ESTADOS CON DEBOUNCE
 
 Para evitar el rebote de las teclas, se utilizan máquinas de estados con debounce. Cada tecla tiene su propia máquina de estado, que consta de los siguientes estados:
 
@@ -22,10 +24,12 @@ Las máquinas de estado realizan las siguientes transiciones:
 
 •	Tecla Inactiva: Cuando se detecta un pulso bajo de la tecla.
 
-Envío de Información por UART
+ENVÍO DE INFORMACIÓN POR UART
 
-Cada vez que una tecla se presiona o se suelta, el microcontrolador envía un mensaje a través de la UART. El mensaje contiene el identificador de la tecla (tecla 1 o tecla 2) y el nuevo estado de la tecla (presionada o liberada).
+Cada vez que una tecla se presiona o se suelta, el microcontrolador envía un mensaje a través de la UART. El mensaje contiene el identificador de la tecla (tecla 1 o tecla 2) 
 
-Encendido de LEDs
+y el nuevo estado de la tecla (presionada o liberada).
+
+ENCENDIDO DE LEDS
 
 Cuando se presiona una tecla, el LED correspondiente se enciende. El LED permanece encendido hasta que se suelta la tecla.
