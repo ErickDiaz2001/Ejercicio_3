@@ -98,10 +98,12 @@ void debounce(uint8_t pin_tecla, uint8_t pin_led, uint8_t i)
 			HAL_GPIO_WritePin(GPIOA, pin_led, 1);// encendemos el led
 			printf("Tecla apretada: TEC%d\n\r", i);
 			valor_swich_anterior[i] = 0;
+			contador[i] = 0;
 			estado_boton[i] = TECLA_LIBERADA;
 		}
 		else
 		{
+			contador[i] = 0;
 			estado_boton[i] = TECLA_INACTIVA;
 		}
 		contador[i] = contador[i] + 1;
