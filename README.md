@@ -56,6 +56,8 @@ Cuando se presiona una tecla, el LED correspondiente se enciende. El LED permane
 
 ANÁLISIS DE RESULTADOS 
 
+![Captura de pantalla 2024-05-28 202720](https://github.com/ErickDiaz2001/Ejercicio_3/assets/169405943/5fccc76e-0bd8-4a03-a36d-12b8aead6486)
+
 
 CONCLUSIÓN
 
