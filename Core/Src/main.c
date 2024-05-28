@@ -92,21 +92,24 @@ void debounce(uint8_t pin_tecla, uint8_t pin_led, uint8_t i)
 		}
 		break;
 	case TECLA_PRESIONADA:
+		contador[i] = contador[i] + 1;
 		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);//se lee el estado del boton
-		if (valor_swich[i] == valor_swich_anterior[i] && contador[i] > TIEMPO_DEBOUNCE)//comparamos valor anterior con el valor actual
+		if (valor_swich[i] == valor_swich_anterior[i]) //comparamos valor anterior con el valor actual
 		{
-			HAL_GPIO_WritePin(GPIOA, pin_led, 1);// encendemos el led
-			printf("Tecla apretada: TEC%d\n\r", i);
-			valor_swich_anterior[i] = 0;
-			contador[i] = 0;
-			estado_boton[i] = TECLA_LIBERADA;
+			if (contador[i] > TIEMPO_DEBOUNCE)
+			{
+				HAL_GPIO_WritePin(GPIOA, pin_led, 1);// encendemos el led
+				printf("Tecla apretada: TEC%d\n\r", i);
+				valor_swich_anterior[i] = 0;
+				contador[i] = 0;
+				estado_boton[i] = TECLA_LIBERADA;
+			}
 		}
 		else
 		{
 			contador[i] = 0;
 			estado_boton[i] = TECLA_INACTIVA;
 		}
-		contador[i] = contador[i] + 1;
 		break;
 	case TECLA_LIBERADA:
 		valor_swich[i] = HAL_GPIO_ReadPin(GPIOA, pin_tecla);//se lee el estado del boton
